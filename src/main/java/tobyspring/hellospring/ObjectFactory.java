@@ -5,16 +5,29 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan
+//@ComponentScan
 public class ObjectFactory {
-//    @Bean
-//    public PaymentService paymentService() {
-//        return new PaymentService(exRateProvider());
-//    }
-//
-//    @Bean
-//    public ExRateProvider exRateProvider(){
-////        return new WebApiExRateProvider();
-//        return new SimpleExRateProvider();
-//    }
+    @Bean
+    public PaymentService paymentService() {
+        return new PaymentService(exRateProvider());
+    }
+
+    @Bean
+    public OrderService orderService() {
+        return new OrderService(exRateProvider());
+    }
+
+    @Bean
+    public ExRateProvider exRateProvider(){
+//        return new WebApiExRateProvider();
+        return new SimpleExRateProvider();
+    }
+}
+
+class OrderService {
+    ExRateProvider exRateProvider;
+
+    public OrderService(ExRateProvider exRateProvider) {
+        this.exRateProvider = exRateProvider;
+    }
 }

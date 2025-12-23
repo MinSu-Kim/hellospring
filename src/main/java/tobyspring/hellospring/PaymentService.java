@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class PaymentService {
-    private final ExRateProvider exRateProvider;
+    ExRateProvider exRateProvider;
 
     public PaymentService(ExRateProvider exRateProvider) {
         this.exRateProvider = exRateProvider;
