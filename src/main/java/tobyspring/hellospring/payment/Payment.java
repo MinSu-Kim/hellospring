@@ -7,6 +7,7 @@ public class Payment {
     private Long orderId;
     private String currency;
     private BigDecimal exRate;
+    private BigDecimal foreignCurrencyAmount; //정확한 숫자를 사용할 경우 BigDecimal 사용
     private BigDecimal convertedAmount;
     private LocalDateTime validUntil;
 
