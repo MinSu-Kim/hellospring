@@ -1,5 +1,6 @@
 package tobyspring.hellospring;
 
+import org.springframework.stereotype.Component;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -10,6 +11,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.stream.Collectors;
 
+@Component
 public class WebApiExRateProvider implements ExRateProvider{
 
     @Override
