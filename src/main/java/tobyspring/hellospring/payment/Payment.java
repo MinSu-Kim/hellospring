@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 public class Payment {
     private Long orderId;
     private String currency;
-    private BigDecimal foreignCurrencyAmount; //정확한 숫자를 사용할 경우 BigDecimal 사용
     private BigDecimal exRate;
     private BigDecimal convertedAmount;
     private LocalDateTime validUntil;
