@@ -1,6 +1,5 @@
 package tobyspring.hellospring;
 
-import org.springframework.cglib.core.Local;
 import tools.jackson.databind.ObjectMapper;
 
 import java.io.BufferedReader;
@@ -8,15 +7,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.net.URLConnection;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 public class PaymentService {
     public Payment prepare(Long orderId, String currency, BigDecimal foreignCurrencyAmount) throws IOException {
-        // 환율가져오기 https://open.er-api.com/v6/latest/{기준통화} 이용
         URL url = new URL("https://open.er-api.com/v6/latest/" + currency);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
         BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()));
@@ -25,8 +21,6 @@ public class PaymentService {
 
         ObjectMapper mapper = new ObjectMapper();
         ExRateData data = mapper.readValue(response, ExRateData.class);
-//        System.out.println(data);
-//        System.out.println();
         BigDecimal exRate = data.rates().get("KRW");
 //        System.out.println(exRate);
         // 금액계산

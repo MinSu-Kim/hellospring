@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 public class Payment {
     private Long orderId;
     private String currency;
-    private BigDecimal foreignCurrencyAmount;
     private BigDecimal exRate;
     private BigDecimal convertedAmount;
     private LocalDateTime validUntil;
