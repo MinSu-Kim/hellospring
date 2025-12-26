@@ -1,5 +1,6 @@
 package tobyspring.hellospring.exrate;
 
+import tobyspring.hellospring.api.ApiExecutor;
 import tobyspring.hellospring.api.SimpleApiExecutor;
 import tobyspring.hellospring.payment.ExRateProvider;
 import tools.jackson.databind.ObjectMapper;
@@ -19,11 +20,10 @@ public class WebApiExRateProvider implements ExRateProvider {
     @Override
     public BigDecimal getExRate(String currency) {
         String url = "https://open.er-api.com/v6/latest/" + currency;
-        return runApiForExRate(url);
-
+        return runApiForExRate(url, new SimpleApiExecutor());
     }
 
-    private static BigDecimal runApiForExRate(String url) {
+    private static BigDecimal runApiForExRate(String url, ApiExecutor apiExecutor) {
         URI uri;
         try {
             uri = new URI(url);
@@ -33,11 +33,10 @@ public class WebApiExRateProvider implements ExRateProvider {
 
         String response;
         try {
-            response = new SimpleApiExecutor().execute(uri);
+            response = apiExecutor.execute(uri);
         } catch (IOException e){
             throw new RuntimeException(e);
         }
-
         return extractExRate(response);
     }
 
@@ -46,5 +45,4 @@ public class WebApiExRateProvider implements ExRateProvider {
         ExRateData data = mapper.readValue(response, ExRateData.class);
         return data.rates().get("KRW");
     }
-
 }
