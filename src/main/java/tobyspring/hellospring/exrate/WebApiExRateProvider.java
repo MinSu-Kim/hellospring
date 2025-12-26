@@ -28,18 +28,28 @@ public class WebApiExRateProvider implements ExRateProvider {
 
         String response;
         try {
-            HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
-
-            try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                response =br.lines().collect(Collectors.joining());
-            }
+            response = executeApi(uri);
         } catch (IOException e){
             throw new RuntimeException(e);
         }
 
+        return parseExRate(response);
+
+    }
+
+    private static BigDecimal parseExRate(String response) {
         ObjectMapper mapper = new ObjectMapper();
         ExRateData data = mapper.readValue(response, ExRateData.class);
         return data.rates().get("KRW");
+    }
 
+    private static String executeApi(URI uri) throws IOException {
+        String response;
+        HttpURLConnection connection = (HttpURLConnection) uri.toURL().openConnection();
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+            response =br.lines().collect(Collectors.joining());
+        }
+        return response;
     }
 }
