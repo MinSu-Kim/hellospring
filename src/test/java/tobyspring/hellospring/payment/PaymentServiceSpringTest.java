@@ -29,7 +29,7 @@ class PaymentServiceSpringTest {
 
     @Test
     @DisplayName("prepare 메서드가 요구사항 3가지를 잘 충족했는지 검증")
-    void convertedAmount() throws IOException {
+    void convertedAmount() {
 
         // exRate : 1000
         Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
@@ -53,7 +53,7 @@ class PaymentServiceSpringTest {
     }
 
     @Test
-    void validUntil() throws IOException {
+    void validUntil() {
         Payment payment = paymentService.prepare(1L, "USD", BigDecimal.TEN);
 
         // valid until이 prepare() 30분 뒤로 설정되었는가?
